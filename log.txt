@@ -1,15 +1,4 @@
-URL: /
-Timestamp: Wed Aug 09 2023 11:57:25 GMT-0500 (Central Daylight Time)
-
-URL: /favicon.ico
-Timestamp: Wed Aug 09 2023 11:57:25 GMT-0500 (Central Daylight Time)
-
-URL: /favicon.ico
-Timestamp: Wed Aug 09 2023 11:59:24 GMT-0500 (Central Daylight Time)
-
-URL: /
-Timestamp: Wed Aug 09 2023 12:07:04 GMT-0500 (Central Daylight Time)
-
-URL: /favicon.ico
-Timestamp: Wed Aug 09 2023 12:07:05 GMT-0500 (Central Daylight Time)
-
+::1 - - [10/Aug/2023:19:18:11 +0000] "GET /movies HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.188"
+::1 - - [10/Aug/2023:19:21:23 +0000] "GET /documentation HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.188"
+::1 - - [10/Aug/2023:19:22:22 +0000] "GET /documentation HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.188"
+::1 - - [10/Aug/2023:19:22:24 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.188"
