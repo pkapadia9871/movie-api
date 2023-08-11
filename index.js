@@ -39,8 +39,49 @@ let topMovies = [
     res.sendFile('public/documentation.html', { root: __dirname });
   });
   
+  /*Return a list of ALL movies to the user */
   app.get('/movies', (req, res) => {
     res.json(topMovies);
+  });
+  
+  /*Return data about a single movie by title to the user */
+  app.get('/movies/Movie1', (req, res) => {
+    res.json(topMovies[0]);
+  });
+
+  /*Return data about a genre (description) by name/title. */
+  app.get('/movies/Movie1/Action', (req, res) => {
+    res.send('Movie1, action');
+  });
+
+  /*Return data about a director (bio, birth year, death year) by name. */
+  app.get('/movies/Movie1/James', (req, res) => {
+    res.send('Movie1 directed by James');
+  });
+
+  /*Allow new users to register */
+  app.post('/movies/Movie1/Joe', (req, res) => {
+    res.send('registered');
+  });
+
+  /*Allow users to update their user info (username)*/
+  app.post('/movies/Movie1/Jim', (req, res) => {
+    res.send('updated');
+  });
+
+  /*Allow users to add a movie to their list of favorites */
+  app.post('/movies', (req, res) => {
+    res.send('registered!');
+  });
+
+  /*Allow users to remove a movie from their list of favorites */
+  app.delete('/movies', (req, res) => {
+    res.send('removed!');
+  });
+
+  /*Allow existing users to deregister */
+  app.delete('/movies/Jill', (req, res) => {
+    res.send('deregistered!');
   });
   
   // listen for requests

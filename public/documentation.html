@@ -9,5 +9,50 @@
     <h1>Description</h1>
     <p>I will update this as we go along. We will build the server side component of a movies web application. </p>
     <p>It will render info about a movie to the user as well as allow the user to make changes to the movie profile.</p>
+    <p>Business logic: Return a list of ALL movies to the user. 
+      URL: /movies. 
+      HTTP method: GET. 
+      Request body data format: None. 
+      Response body data format: JSON object holding data about all the movies. </p>
+    <p>Business logic: Return data about a single movie by title to the user. 
+      URL: /movies/[Name]. 
+      HTTP method: GET. 
+      Request body data format: None. 
+      Response body data format: JSON object holding data about a single movie. </p>
+    <p>Business logic: Return data about a genre (description) by name/title. 
+      URL: /movies/[Title]/[Genre]. 
+      HTTP method: GET. 
+      Request body data format: none. 
+      Response body data format: text message indicating title and genre of movie. </p>
+    <p>Business logic: Return data about a director (bio, birth year, death year) by name. 
+      URL: /movies/[director]. 
+      HTTP method: GET. 
+      Request body data format: none. 
+      Response body data format: text message indicating movie and its director. </p>
+    <p>Business logic: Allow new users to register. 
+      URL: /movies/[User]. 
+      HTTP method: POST. 
+      Request body data format: none. 
+      Response body data format: text message saying 'registered'. </p>
+    <p>Business logic: Allow users to update their user info (username). 
+      URL: /students/[Name]. 
+      HTTP method: POST. 
+      Request body data format: none. 
+      Response body data format: text message indicating info that was updated. </p>
+    <p>Business logic: Allow users to add a movie to their list of favorites. 
+      URL: /movies. 
+      HTTP method: POST. 
+      Request body data format: none. 
+      Response body data format: json object holding data about movie added. </p>
+    <p>Business logic: Allow users to remove a movie from their list of favorites. 
+      URL: /movies. 
+      HTTP method: DELETE. 
+      Request body data format: none. 
+      Response body data format: text message saying "removed". </p>
+    <p>Business logic: Allow existing users to deregister . 
+      URL: /movies/[Name]. 
+      HTTP method: DELETE. 
+      Request body data format: none. 
+      Response body data format: text message saying "deregistered". </p>
   </body>
 </html>
