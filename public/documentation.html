@@ -15,42 +15,42 @@
       Request body data format: None. 
       Response body data format: JSON object holding data about all the movies. </p>
     <p>Business logic: Return data about a single movie by title to the user. 
-      URL: /movies/[Name]. 
+      URL: /movies/:title. 
       HTTP method: GET. 
       Request body data format: None. 
       Response body data format: JSON object holding data about a single movie. </p>
     <p>Business logic: Return data about a genre (description) by name/title. 
-      URL: /movies/[Title]/[Genre]. 
+      URL: /movies/genres/:genreName. 
       HTTP method: GET. 
       Request body data format: none. 
-      Response body data format: text message indicating title and genre of movie. </p>
+      Response body data format: JSON object containing title and genre of movie. </p>
     <p>Business logic: Return data about a director (bio, birth year, death year) by name. 
-      URL: /movies/[director]. 
+      URL: /movies/directors/:director. 
       HTTP method: GET. 
       Request body data format: none. 
-      Response body data format: text message indicating movie and its director. </p>
+      Response body data format: JSON object containing director. </p>
     <p>Business logic: Allow new users to register. 
-      URL: /movies/[User]. 
+      URL: /users. 
       HTTP method: POST. 
       Request body data format: none. 
       Response body data format: text message saying 'registered'. </p>
     <p>Business logic: Allow users to update their user info (username). 
-      URL: /students/[Name]. 
-      HTTP method: POST. 
+      URL: /users. 
+      HTTP method: PUT. 
       Request body data format: none. 
       Response body data format: text message indicating info that was updated. </p>
     <p>Business logic: Allow users to add a movie to their list of favorites. 
-      URL: /movies. 
+      URL: /users/:movie. 
       HTTP method: POST. 
       Request body data format: none. 
       Response body data format: json object holding data about movie added. </p>
     <p>Business logic: Allow users to remove a movie from their list of favorites. 
-      URL: /movies. 
+      URL: /users/:movie. 
       HTTP method: DELETE. 
       Request body data format: none. 
       Response body data format: text message saying "removed". </p>
     <p>Business logic: Allow existing users to deregister . 
-      URL: /movies/[Name]. 
+      URL: /users. 
       HTTP method: DELETE. 
       Request body data format: none. 
       Response body data format: text message saying "deregistered". </p>

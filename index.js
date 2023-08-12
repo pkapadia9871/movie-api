@@ -3,6 +3,9 @@ morgan = require('morgan'),
 fs = require('fs'), // import built in node modules fs and path 
 path = require('path');
 const app = express();
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
 
 app.use(morgan('common'));
 
@@ -14,7 +17,7 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {f
 app.use(morgan('combined', {stream: accessLogStream}));
 
 
-let topMovies = [
+let movies = [
     {
       title: 'Movie1',
       author: 'Bob Roberts'
@@ -22,10 +25,6 @@ let topMovies = [
     {
       title: 'Movie2',
       author: 'Bill Williams'
-    },
-    {
-      title: 'Movie3',
-      author: 'Emily Elizabeth'
     }
   ];
   
@@ -41,46 +40,46 @@ let topMovies = [
   
   /*Return a list of ALL movies to the user */
   app.get('/movies', (req, res) => {
-    res.json(topMovies);
+    res.json(movies);
   });
   
   /*Return data about a single movie by title to the user */
-  app.get('/movies/Movie1', (req, res) => {
-    res.json(topMovies[0]);
+  app.get('/movies/:title', (req, res) => {
+    res.json(movies[0]);
   });
 
   /*Return data about a genre (description) by name/title. */
-  app.get('/movies/Movie1/Action', (req, res) => {
+  app.get('/movies/genres/:genreName', (req, res) => {
     res.send('Movie1, action');
   });
 
   /*Return data about a director (bio, birth year, death year) by name. */
-  app.get('/movies/Movie1/James', (req, res) => {
+  app.get('/movies/directors/:director', (req, res) => {
     res.send('Movie1 directed by James');
   });
 
   /*Allow new users to register */
-  app.post('/movies/Movie1/Joe', (req, res) => {
+  app.post('/users', (req, res) => {
     res.send('registered');
   });
 
   /*Allow users to update their user info (username)*/
-  app.post('/movies/Movie1/Jim', (req, res) => {
+  app.put('/users', (req, res) => {
     res.send('updated');
   });
 
   /*Allow users to add a movie to their list of favorites */
-  app.post('/movies', (req, res) => {
+  app.post('/users/:movie', (req, res) => {
     res.send('registered!');
   });
 
   /*Allow users to remove a movie from their list of favorites */
-  app.delete('/movies', (req, res) => {
+  app.delete('/users/:movie', (req, res) => {
     res.send('removed!');
   });
 
   /*Allow existing users to deregister */
-  app.delete('/movies/Jill', (req, res) => {
+  app.delete('/users', (req, res) => {
     res.send('deregistered!');
   });
   
