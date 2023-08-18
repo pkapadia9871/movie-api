@@ -19,6 +19,13 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
+let auth = require('./auth')(app);
+
+const passport = require('passport');
+require('./passport');
+
 app.use(morgan('common'));
 
 // create a write stream (in append mode)
@@ -38,17 +45,23 @@ app.use(morgan('combined', {stream: accessLogStream}));
   });
   
   /*Return a list of ALL movies to the user */
-  app.get('/movies', async (req, res) => {
+  app.get('/movies', passport.authenticate('jwt', { session: false }) , async (req, res) => {
     /*res.json(movies);*/
     Movies.find().then(movies => res.json(movies));
   });
+
+   /*Return a list of ALL users to the user (for debugging) */
+   app.get('/users' , async (req, res) => {
+    /*res.json(movies);*/
+    Users.find().then(users => res.json(users));
+  });
   
   /*Return data about a single movie by title to the user */
-  app.get('/movies/:title', async (req, res) => {
+  app.get('/movies/:title', passport.authenticate('jwt', { session: false }) , async (req, res) => {
     /*res.json(movies[0]);*/
     await Movies.findOne({ Title: req.params.title })
-    .then((user) => {
-      res.json(user);
+    .then((movie) => {
+      res.json(movie);
     })
     .catch((err) => {
       console.error(err);
@@ -57,11 +70,11 @@ app.use(morgan('combined', {stream: accessLogStream}));
   });
 
   /*Return data about a genre (description) by name/title. */
-  app.get('/movies/genres/:genrename', async (req, res) => {
+  app.get('/movies/genres/:genrename', passport.authenticate('jwt', { session: false }) , async (req, res) => {
     /*res.send('Movie1, action');*/
     await Movies.findOne({ "Genre.Name": req.params.genrename })
-    .then((user) => {
-      res.json(user);
+    .then((movie) => {
+      res.json(movie);
     })
     .catch((err) => {
       console.error(err);
@@ -70,11 +83,11 @@ app.use(morgan('combined', {stream: accessLogStream}));
   });
 
   /*Return data about a director (bio, birth year, death year) by name. */
-  app.get('/movies/directors/:director', async (req, res) => {
+  app.get('/movies/directors/:director', passport.authenticate('jwt', { session: false }) , async (req, res) => {
     /*res.send('Movie1 directed by James');*/
     await Movies.findOne({ "Director.Name": req.params.director })
-    .then((user) => {
-      res.json(user);
+    .then((movie) => {
+      res.json(movie);
     })
     .catch((err) => {
       console.error(err);
@@ -83,9 +96,9 @@ app.use(morgan('combined', {stream: accessLogStream}));
   });
 
   /*Allow new users to register */
-  app.post('/users', async (req, res) => {
+  app.post('/users' , async (req, res) => {
     /*res.send('registered');*/
-      await Users.findOne()
+      await Users.findOne({ Username: req.body.Username })
         .then((user) => {
           if (user) {
             return res.status(400).send(req.body.Username + 'already exists');
@@ -111,14 +124,19 @@ app.use(morgan('combined', {stream: accessLogStream}));
   });
 
   /*Allow users to update their user info (username)*/
-  app.put('/users/:Username', async (req, res) => {
+  app.put('/users/:Username', passport.authenticate('jwt', { session: false }) , async (req, res) => {
     /*res.send('updated');*/
+      // CONDITION TO CHECK ADDED HERE
+        if(req.user.Username !== req.params.Username){
+          return res.status(400).send('Permission denied');
+      }
+      // CONDITION ENDS
     await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
       {
         Username: req.body.Username,
         Password: req.body.Password,
         Email: req.body.Email,
-        /*Birthday: req.body.Birthday*/
+        Birthday: req.body.Birthday
       }
     },
     { new: true }) // This line makes sure that the updated document is returned
@@ -132,10 +150,10 @@ app.use(morgan('combined', {stream: accessLogStream}));
   });
 
   /*Allow users to add a movie to their list of favorites */
-  app.post('/users/:Username/movies/:Title', async (req, res) => {
+  app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }) , async (req, res) => {
     /*res.send('registered!');*/
     await Users.findOneAndUpdate({ Username: req.params.Username }, {
-      $push: { FavoriteMovies: req.params.Title }
+      $push: { FavoriteMovies: req.params.MovieID }
     },
     { new: true }) // This line makes sure that the updated document is returned
    .then((updatedUser) => {
@@ -148,10 +166,10 @@ app.use(morgan('combined', {stream: accessLogStream}));
   });
 
   /*Allow users to remove a movie from their list of favorites */
-  app.delete('/users/:Username/movies/:Title', async (req, res) => {
+  app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }) , async (req, res) => {
     /*res.send('removed!');*/
     await Users.findOneAndRemove({ Username: req.params.Username }, {
-      $pull: { FavoriteMovies: req.params.Title }
+      $pull: { FavoriteMovies: req.params.MovieID }
     },
     { new: true }) // This line makes sure that the updated document is returned
    .then((updatedUser) => {
@@ -164,7 +182,7 @@ app.use(morgan('combined', {stream: accessLogStream}));
   });
 
   /*Allow existing users to deregister */
-  app.delete('/users/:Username', async (req, res) => {
+  app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
     /*res.send('deregistered!');*/
     await Users.findOneAndRemove({ Username: req.params.Username })
     .then((user) => {
