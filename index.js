@@ -135,7 +135,7 @@ app.use(morgan('combined', {stream: accessLogStream}));
             Users
               .create({
                 Username: req.body.Username,
-                Password: req.body.Password,
+                Password: hashedPassword,
                 Email: req.body.Email,
                 Birthday: req.body.Birthday
               })
@@ -211,7 +211,7 @@ app.use(morgan('combined', {stream: accessLogStream}));
   });
 
   /*Allow existing users to deregister */
-  app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  app.delete('/users/:Username', passport.authenticate('jwt', { session: false }) , async (req, res) => {
     /*res.send('deregistered!');*/
     await Users.findOneAndRemove({ Username: req.params.Username })
     .then((user) => {
