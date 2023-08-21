@@ -8,6 +8,10 @@ mongoose.connect('mongodb://127.0.0.1/test', {
     useNewUrlParser: true, 
     useUnifiedTopology: true
   });
+  /*mongoose.connect('mongodb+srv://parikkapadia21:<password>@cluster0.mld4wza.mongodb.net/?retryWrites=true&w=majority', { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true
+  });*/
 
 
 const express = require('express'),
@@ -153,17 +157,29 @@ app.use(morgan('combined', {stream: accessLogStream}));
   });
 
   /*Allow users to update their user info (username)*/
-  app.put('/users/:Username', passport.authenticate('jwt', { session: false }) , async (req, res) => {
+  app.put('/users/:Username', [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ], passport.authenticate('jwt', { session: false }) , async (req, res) => {
     /*res.send('updated');*/
       // CONDITION TO CHECK ADDED HERE
         if(req.user.Username !== req.params.Username){
           return res.status(400).send('Permission denied');
       }
       // CONDITION ENDS
+    
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
     await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
       {
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       }
