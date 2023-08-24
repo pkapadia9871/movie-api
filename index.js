@@ -66,7 +66,7 @@ app.use(morgan('combined', {stream: accessLogStream}));
   });
   
   /*Return a list of ALL movies to the user */
-  app.get('/movies', passport.authenticate('jwt', { session: false }) , async (req, res) => {
+  app.get('/movies', /*passport.authenticate('jwt', { session: false }),*/ async (req, res) => {
     /*res.json(movies);*/
     Movies.find().then(movies => res.json(movies));
   });
@@ -227,7 +227,9 @@ app.use(morgan('combined', {stream: accessLogStream}));
   });
 
   /*Allow existing users to deregister */
-  app.delete('/users/:Username', passport.authenticate('jwt', { session: false }) , async (req, res) => {
+  app.delete('/users/:Username', 
+  passport.authenticate('jwt', { session: false }) ,
+  async (req, res) => {
     /*res.send('deregistered!');*/
     await Users.findOneAndRemove({ Username: req.params.Username })
     .then((user) => {
@@ -259,3 +261,9 @@ app.use(morgan('combined', {stream: accessLogStream}));
     console.error(err.stack);
     res.status(500).send('Something broke!');
   });
+
+  /*const port = process.env.PORT || 8080;
+  app.listen(port, '0.0.0.0',() => {
+    console.log('Your app is listening on port 8080.');
+
+  });*/
