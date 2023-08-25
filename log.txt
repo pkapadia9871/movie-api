@@ -45,3 +45,4 @@
 127.0.0.1 - - [24/Aug/2023:14:24:42 +0000] "DELETE /users/Bobby HTTP/1.1" 401 - "-" "PostmanRuntime/7.32.3"
 127.0.0.1 - - [24/Aug/2023:14:24:47 +0000] "GET /users/ HTTP/1.1" 200 1081 "-" "PostmanRuntime/7.32.3"
 127.0.0.1 - - [24/Aug/2023:14:27:04 +0000] "GET /users/ HTTP/1.1" 200 1081 "-" "PostmanRuntime/7.32.3"
+127.0.0.1 - - [25/Aug/2023:14:03:16 +0000] "GET /movies HTTP/1.1" 200 4779 "-" "PostmanRuntime/7.32.3"
