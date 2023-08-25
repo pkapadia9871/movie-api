@@ -4,14 +4,20 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect('mongodb://127.0.0.1/test', { 
+/*mongoose.connect('mongodb://127.0.0.1/test', { 
     useNewUrlParser: true, 
     useUnifiedTopology: true
-  });
+  });*/
+
   /*mongoose.connect('mongodb+srv://parikkapadia21:<password>@cluster0.mld4wza.mongodb.net/?retryWrites=true&w=majority', { 
     useNewUrlParser: true, 
     useUnifiedTopology: true
   });*/
+
+    mongoose.connect(process.env.CONNECTION_URI, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true
+  });
 
 
 const express = require('express'),
