@@ -9,7 +9,7 @@ const Users = Models.User;
     useUnifiedTopology: true
   });*/
 
-  /*mongoose.connect('mongodb+srv://parikkapadia21:<password>@cluster0.mld4wza.mongodb.net/?retryWrites=true&w=majority', { 
+  /*mongoose.connect('mongodb+srv://parikkapadia21:SmeagolGollum9871%40@cluster0.smxn0zf.mongodb.net/?retryWrites=true&w=majority', { 
     useNewUrlParser: true, 
     useUnifiedTopology: true
   });*/
@@ -219,7 +219,7 @@ app.use(morgan('combined', {stream: accessLogStream}));
   /*Allow users to remove a movie from their list of favorites */
   app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }) , async (req, res) => {
     /*res.send('removed!');*/
-    await Users.findOneAndRemove({ Username: req.params.Username }, {
+    await Users.findOneAndUpdate({ Username: req.params.Username }, {
       $pull: { FavoriteMovies: req.params.MovieID }
     },
     { new: true }) // This line makes sure that the updated document is returned

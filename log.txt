@@ -46,3 +46,6 @@
 127.0.0.1 - - [24/Aug/2023:14:24:47 +0000] "GET /users/ HTTP/1.1" 200 1081 "-" "PostmanRuntime/7.32.3"
 127.0.0.1 - - [24/Aug/2023:14:27:04 +0000] "GET /users/ HTTP/1.1" 200 1081 "-" "PostmanRuntime/7.32.3"
 127.0.0.1 - - [25/Aug/2023:14:03:16 +0000] "GET /movies HTTP/1.1" 200 4779 "-" "PostmanRuntime/7.32.3"
+127.0.0.1 - - [25/Aug/2023:21:29:59 +0000] "GET /movies HTTP/1.1" 200 4779 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.54"
+127.0.0.1 - - [25/Aug/2023:21:30:06 +0000] "GET /movies HTTP/1.1" 200 4779 "-" "PostmanRuntime/7.32.3"
+127.0.0.1 - - [25/Aug/2023:21:32:17 +0000] "GET /movies HTTP/1.1" 200 4779 "-" "PostmanRuntime/7.32.3"
